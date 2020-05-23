@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <time.h>
+#define TIME 1000000000
+
+int main(int argc, char** argv) {	
+	
+	int i, monsters, experience, level;
+	int timer; /*/ The name of this variable cannot be 'time'/*/
+	srand(time(NULL));
+	
+	void sleep(){		
+		for(timer=1; timer<TIME; ++timer){}			
+	}
+		
+	unsigned const char MAP_DIMENSION;
+	unsigned char position_x;
+	unsigned char position_y;
+	unsigned char monster_probability;	
+	unsigned char item_probability;	
+	
+	typedef enum { true, false } bool;
+	
+	bool moving_up_or_down;
+	bool moving_left_or_right;
+	
+	struct point {
+		unsigned char x;
+		unsigned char y;		
+	};
+	
+	unsigned const char PROBABILITY  = 200;
+	unsigned const char ITEM_PROBABILITY  = 250;
+	
+	position_x = rand();
+	position_y = rand();
+			
+	printf("You born at %i, %i position!\n\n", position_x, position_y);	
+	
+	struct point position = { 0, 1 };
+				
+	while(i<TIME){
+		
+	monster_probability = rand();
+	
+	if (monster_probability > PROBABILITY){
+		monsters++;
+		experience = monsters;
+		level = experience;
+		
+			printf("\nLevel         Monsters          Experience\n");	
+			printf("------------------------------------------\n");
+			printf("\nNew level %d! (%8d monsters for next level) exp: %8d\n", level, level, experience);	
+			printf("%8d < %8d < %8d\n", level, monsters, experience);				
+	}	
+	
+	item_probability = rand();
+		
+	if (item_probability > ITEM_PROBABILITY){
+		printf(" >>You obtained a rare and wonderful gift! =3\n");	
+	}
+		
+	moving_up_or_down = rand();
+	moving_left_or_right = rand();
+	
+	if (moving_up_or_down == 1){
+	position_y+= 1;	
+	}else{
+	position_y-= 1;	
+	}
+	
+	if (moving_left_or_right == 1){
+	position_x+= 1;	
+	}else{
+	position_x-= 1;	
+	}
+	
+	if (position_x > 255){
+	position_x = 0;
+	}
+	
+	if (position_y > 255){
+	position_y = 0;
+	}		
+		
+	printf("Hunting... (%i, %i)\n", position_x, position_y);	
+	sleep();	
+	i++;
+		
+	}
+		
+	
+	return 0;
+	
+}
